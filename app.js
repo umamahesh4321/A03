@@ -14,10 +14,7 @@ const http = require('http').Server(app)  // inject app into the server
 // 5 handle valid POST request (not required to fully work)
 // 6 respond with 404 if a bad URI is requested
 
-// Listen for an application request on port 8081
-http.listen(8081, function () {
-  console.log('app listening on http://127.0.0.1:8081/')
-})
+
 // 1 set up the view engine
 app.set("views", path.resolve(__dirname, "views")) // path to views
 app.set("view engine", "ejs") // specify our view
@@ -45,6 +42,10 @@ app.get("/calculator", function (req, res) {
  res.render("calculator.ejs")
 })
 
+app.get("/about", function (req, res) {
+ res.render("about.ejs")
+})
+
 
 
 // 4 http GET /contact
@@ -70,14 +71,13 @@ app.post("/contact", function (req, res) {
 
  // logs to the terminal window (not the browser)
  console.log('\nCONTACT FORM DATA: ' + name + ' ' + email + ' ' + comment + '\n');
- //})
+ })
 // 6 this will execute for all unknown URIs not specifically handled
 app.get(function (req, res) {
  res.render("404")
 })
 
 // Listen for an application request on designated port
-app.listen(port, function () {
- console.log('Web app started and listening on http://localhost:' + port)
-})
+app.listen( process.env.PORT || 8081, function () {
+ console.log('Web app started and listening on http://localhost:' + 8081)
 })
